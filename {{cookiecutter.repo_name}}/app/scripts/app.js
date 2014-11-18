@@ -2,14 +2,18 @@
 
 var app = angular
   .module('{{cookiecutter.base_app_name}}', [
+    'ngCookies',
     'ngAnimate',
     'ngSanitize',
     'ngTouch',
-    '{{cookiecutter.base_app_name}}.models',
-    '{{cookiecutter.base_app_name}}.directives',
     'ui.router',
     'mm.foundation',
+    'restangular',
+    '{{cookiecutter.base_app_name}}.models',
+    '{{cookiecutter.base_app_name}}.services',
+    '{{cookiecutter.base_app_name}}.directives',
   ]);
 
 var models = angular.module('{{cookiecutter.base_app_name}}.models', []);
+var services = angular.module('{{cookiecutter.base_app_name}}.services', []);
 var directives = angular.module('{{cookiecutter.base_app_name}}.directives', []);

@@ -1,6 +1,6 @@
 {
-  "name": "restCMS",
-  "version": "0.0.0",
+  "name": "{{cookiecutter.project_name}}",
+  "version": "0.0.1",
   "dependencies": {},
   "devDependencies": {
     "connect": "^2.14.4",
