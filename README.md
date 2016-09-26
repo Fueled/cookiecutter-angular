@@ -5,7 +5,7 @@ Project template for angular-js based web projects, with a login.
 
 ## Features
 
-* Angular JS 1.3.3
+* Angular JS 1.5.8
 * Foundation 5.4.1
 * Gulp
 * SASS, Live-Reloading Server

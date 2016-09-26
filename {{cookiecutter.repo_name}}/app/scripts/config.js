@@ -16,12 +16,12 @@ app.config(['$httpProvider', 'RestangularProvider', 'settings', function($httpPr
 
   // REST FRAMEWORK SPECIFIC PAGINATION
   RestangularProvider.setResponseExtractor(function(response, operation) {
-    if (operation === "getList") {
+    if (operation === 'getList') {
       var objects = response.results;
       objects._paginationInfo = {
-        "count": response.count,
-        "next": response.next,
-        "previous": response.previous
+        count: response.count,
+        next: response.next,
+        previous: response.previous
       };
       return objects;
     }

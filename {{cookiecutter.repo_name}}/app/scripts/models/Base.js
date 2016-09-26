@@ -22,7 +22,7 @@ app
         // Helps prevent caching
         var payload = {
           time: new Date().toISOString()
-        }
+        };
 
         resource.get(payload).then(function(response){
           self.id = response.data.id;
@@ -70,7 +70,7 @@ app
         // Helps prevent caching
         var payload = {
           time: new Date().toISOString()
-        }
+        };
 
         resource.delete(payload).then(function(response){
           self.syncing = false;
@@ -82,6 +82,6 @@ app
 
         return promise;
       }
-    }
+    };
 
   }]);

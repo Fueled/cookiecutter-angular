@@ -6,60 +6,58 @@ var gutil = require('gulp-util');
 var magenta = gutil.colors.magenta;
 
 // load plugins
-var $ = require('gulp-load-plugins')();
+var plugins = require('gulp-load-plugins')();
 var mainBowerFiles = require('main-bower-files');
 
 
 gulp.task('styles', function () {
     var path = require('path');
     return gulp.src('app/styles/main.scss')
-        .pipe($.compass({
+        .pipe(plugins.compass({
           project: path.join(__dirname),
           sass: 'app/styles',
           css: 'app/styles'
         }))
-        .pipe($.autoprefixer('last 1 version'))
+        .pipe(plugins.autoprefixer('last 1 version'))
         .pipe(gulp.dest('app/styles'))
-        .pipe($.size())
-        .pipe($.notify({title: "Styles Compiled !", message:"Refresh your page."}));
+        .pipe(plugins.size())
 });
 
 gulp.task('scripts', function () {
     return gulp.src('app/scripts/**/*.js')
-        .pipe($.jshint())
-        .pipe($.jshint.reporter(require('jshint-stylish')))
-        .pipe($.size());
+        .pipe(plugins.jshint())
+        .pipe(plugins.jshint.reporter(require('jshint-stylish')))
+        .pipe(plugins.size());
 });
 
 gulp.task('html', ['styles', 'scripts'], function () {
-    var jsFilter = $.filter('**/*.js');
-    var cssFilter = $.filter('**/*.css');
+    var jsFilter = plugins.filter('**/*.js', {restore: true});
+    var cssFilter = plugins.filter('**/*.css', {restore: true});
 
     return gulp.src(['app/**/*.html', '!app/bower_components/**/*'])
-        .pipe($.useref.assets({searchPath: '{.tmp,app}'}))
+        .pipe(plugins.useref({searchPath: '{.tmp,app}'}))
         .pipe(jsFilter)
-        .pipe($.uglify())
-        .pipe(jsFilter.restore())
+        .pipe(plugins.uglify())
+        .pipe(jsFilter.restore)
         .pipe(cssFilter)
-        .pipe($.csso())
-        .pipe(cssFilter.restore())
-        .pipe($.rev())
-        .pipe($.useref.restore())
-        .pipe($.useref())
-        .pipe($.revReplace())
+        .pipe(plugins.csso())
+        .pipe(cssFilter.restore)
+        .pipe(plugins.rev())
+        .pipe(plugins.useref())
+        .pipe(plugins.revReplace())
         .pipe(gulp.dest('dist'))
-        .pipe($.size());
+        .pipe(plugins.size());
 });
 
 gulp.task('images', function () {
     return gulp.src('app/images/**/*.*')
-        .pipe($.cache($.imagemin({
+        .pipe(plugins.cache(plugins.imagemin({
             optimizationLevel: 3,
             progressive: true,
             interlaced: true
         })))
         .pipe(gulp.dest('dist/images'))
-        .pipe($.size());
+        .pipe(plugins.size());
 });
 
 gulp.task('fonts', function () {
@@ -68,10 +66,10 @@ gulp.task('fonts', function () {
   bowerFiles.push('app/fonts/**/*.*');
 
     return gulp.src(bowerFiles)
-        .pipe($.filter('**/*.{eot,svg,ttf,woff}'))
-        .pipe($.flatten())
+        .pipe(plugins.filter('**/*.{eot,svg,ttf,woff}'))
+        .pipe(plugins.flatten())
         .pipe(gulp.dest('dist/fonts'))
-        .pipe($.size());
+        .pipe(plugins.size());
 });
 
 gulp.task('extras', function () {
@@ -80,7 +78,7 @@ gulp.task('extras', function () {
 });
 
 gulp.task('clean', function () {
-    return gulp.src(['.tmp', 'dist'], { read: false }).pipe($.clean());
+    return gulp.src(['.tmp', 'dist'], { read: false }).pipe(plugins.clean());
 });
 
 gulp.task('build', ['clean'], function(){
@@ -93,11 +91,11 @@ gulp.task('default', ['clean'], function(){
 
 gulp.task('connect', function () {
     var connect = require('connect');
+    var serveStatic = require('serve-static');
     var app = connect()
         .use(require('connect-livereload')({ port: 35729 }))
-        .use(connect.static('app'))
-        .use(connect.static('.tmp'))
-        .use(connect.directory('app'));
+        .use(serveStatic('app'))
+        .use(serveStatic('.tmp'));
 
     var port = 9003;
 
@@ -131,7 +129,7 @@ gulp.task('wiredep', function () {
 });
 
 gulp.task('watch', function () {
-    var server = require('gulp-livereload')();
+    var server = require('gulp-livereload');
 
     // watch for changes
 

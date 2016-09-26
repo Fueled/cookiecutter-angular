@@ -100,7 +100,7 @@ app
         else{
           console.log('[ AUTH ] : No CACHED User available.');
           deferred.reject('No token saved');
-        };
+        }
 
         return promise;
       },
@@ -113,6 +113,6 @@ app
         delete $cookies.current_user;
         Restangular.setDefaultHeaders({'Authorization': ''});
       }
-    }
+    };
 
   }]);

@@ -1,12 +1,12 @@
 {
-    "base_app_name": "CMSApp"
-    , "repo_name": "repo_name"
-    , "project_name": "Project X"
-    , "github_username": "Fueled"
-    , "github_reponame": ""
-    , "project_description": "add a short project description here"
-    , "timezone": "UTC"
-    , "version": "0.1.0"
-    , "api_base_url": "http://localhost:8000/api/v1/"
-    , "api_auth_url": "auth"
+    "project_name": "Hello World",
+    "base_app_name": "{{ cookiecutter.project_name|lower|replace(' ', '_')|replace('-', '_') }}",
+    "repo_name": "{{ cookiecutter.base_app_name|replace('_', '-') }}",
+    "github_username": "Fueled",
+    "github_reponame": "",
+    "project_description": "add a short project description here",
+    "timezone": "UTC",
+    "version": "0.1.0",
+    "api_base_url": "http://localhost:8000/api/v1/",
+    "api_auth_url": "auth"
 }

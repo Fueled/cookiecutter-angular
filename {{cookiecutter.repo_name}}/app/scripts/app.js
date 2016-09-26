@@ -1,7 +1,6 @@
 'use strict';
 
-var app = angular
-  .module('{{cookiecutter.base_app_name}}', [
+angular.module('{{cookiecutter.base_app_name}}', [
     'ngCookies',
     'ngAnimate',
     'ngSanitize',
@@ -14,6 +13,6 @@ var app = angular
     '{{cookiecutter.base_app_name}}.directives',
   ]);
 
-var models = angular.module('{{cookiecutter.base_app_name}}.models', []);
-var services = angular.module('{{cookiecutter.base_app_name}}.services', []);
-var directives = angular.module('{{cookiecutter.base_app_name}}.directives', []);
+angular.module('{{cookiecutter.base_app_name}}.models', []);
+angular.module('{{cookiecutter.base_app_name}}.services', []);
+angular.module('{{cookiecutter.base_app_name}}.directives', []);

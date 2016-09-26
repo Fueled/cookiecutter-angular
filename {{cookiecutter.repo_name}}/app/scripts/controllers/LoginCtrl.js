@@ -15,12 +15,12 @@ app.controller('LoginCtrl', ['$scope', 'CurrentUser', '$state', function ($scope
       $state.go('dashboard', {});
     }, function(){
       $scope.temps.loading = false;
-    })
+    });
   };
 
   var init = function(){
     CurrentUser.logout();
-  }
+  };
 
   init();
 }]);
