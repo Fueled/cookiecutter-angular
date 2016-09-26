@@ -21,7 +21,6 @@ gulp.task('styles', function () {
         .pipe($.autoprefixer('last 1 version'))
         .pipe(gulp.dest('app/styles'))
         .pipe($.size())
-        .pipe($.notify({title: "Styles Compiled !", message:"Refresh your page."}));
 });
 
 gulp.task('scripts', function () {
@@ -93,11 +92,11 @@ gulp.task('default', ['clean'], function(){
 
 gulp.task('connect', function () {
     var connect = require('connect');
+    var serveStatic = require('serve-static');
     var app = connect()
         .use(require('connect-livereload')({ port: 35729 }))
-        .use(connect.static('app'))
-        .use(connect.static('.tmp'))
-        .use(connect.directory('app'));
+        .use(serveStatic('app'))
+        .use(serveStatic('.tmp'));
 
     var port = 9003;
 
@@ -131,7 +130,7 @@ gulp.task('wiredep', function () {
 });
 
 gulp.task('watch', function () {
-    var server = require('gulp-livereload')();
+    var server = require('gulp-livereload');
 
     // watch for changes
 
