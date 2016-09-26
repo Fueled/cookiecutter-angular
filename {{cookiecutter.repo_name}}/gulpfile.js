@@ -31,19 +31,18 @@ gulp.task('scripts', function () {
 });
 
 gulp.task('html', ['styles', 'scripts'], function () {
-    var jsFilter = plugins.filter('**/*.js');
-    var cssFilter = plugins.filter('**/*.css');
+    var jsFilter = plugins.filter('**/*.js', {restore: true});
+    var cssFilter = plugins.filter('**/*.css', {restore: true});
 
     return gulp.src(['app/**/*.html', '!app/bower_components/**/*'])
-        .pipe(plugins.useref.assets({searchPath: '{.tmp,app}'}))
+        .pipe(plugins.useref({searchPath: '{.tmp,app}'}))
         .pipe(jsFilter)
         .pipe(plugins.uglify())
-        .pipe(jsFilter.restore())
+        .pipe(jsFilter.restore)
         .pipe(cssFilter)
         .pipe(plugins.csso())
-        .pipe(cssFilter.restore())
+        .pipe(cssFilter.restore)
         .pipe(plugins.rev())
-        .pipe(plugins.useref.restore())
         .pipe(plugins.useref())
         .pipe(plugins.revReplace())
         .pipe(gulp.dest('dist'))
