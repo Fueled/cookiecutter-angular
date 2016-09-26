@@ -24,6 +24,7 @@
     "gulp-useref": "^3.1.2",
     "gulp-util": "^3.0.1",
     "gulp-webserver": "^0.9.1",
+    "jshint": "^2.9.3",
     "jshint-stylish": "^2.2.1",
     "main-bower-files": "^2.0.0",
     "opn": "^4.0.2",
