@@ -1,11 +1,11 @@
 #!/bin/bash
 
-rm -rf Hello\ World/;
+rm -rf hello-world/;
 yes 'y' | cookiecutter . --no-input
 
 
 echo "Hello World Created"
-cd Hello\ World/;
+cd hello-world/;
 
 echo "Installing gulp and bower globally"
 npm install -g gulp bower

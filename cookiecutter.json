@@ -1,7 +1,7 @@
 {
-    "base_app_name": "Hello World",
-    "repo_name": "Hello World",
     "project_name": "Hello World",
+    "base_app_name": "{{ cookiecutter.project_name|lower|replace(' ', '_')|replace('-', '_') }}",
+    "repo_name": "{{ cookiecutter.base_app_name|replace('_', '-') }}",
     "github_username": "Fueled",
     "github_reponame": "",
     "project_description": "add a short project description here",
