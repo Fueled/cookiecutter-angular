@@ -13,20 +13,20 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
         isAuthenticationRequired: false,
         url: '/',
         controller: 'HomeCtrl',
-        templateUrl: 'views/pages/home.html',
+        templateUrl: 'views/pages/home.html'
       })
       .state('login', {
         isAuthenticationRequired: false,
         url: '/login',
         controller: 'LoginCtrl',
-        templateUrl: 'views/pages/login.html',
+        templateUrl: 'views/pages/login.html'
       })
       .state('dashboard', {
         isAuthenticationRequired: true,
         url: '/dashboard',
         controller: 'DashboardCtrl',
-        templateUrl: 'views/pages/dashboard.html',
-      })
+        templateUrl: 'views/pages/dashboard.html'
+      });
   }]);
 
 // STATE CHANGE AUTHENTICATION CHECKS
@@ -36,7 +36,7 @@ app.run(['$rootScope', '$state', 'CurrentUser', function($rootScope, $state,  Cu
   var checkStateAccess = function(CurrentUser, toState, fromState, event){
 
     var isStateChangeAllowed = false;
-    var error = '[ AUTH ] : State change not allowed for user to '+toState.name
+    var error = '[ AUTH ] : State change not allowed for user to ' + toState.name;
 
     if(!toState.isAuthenticationRequired){
       isStateChangeAllowed = true;
@@ -53,14 +53,14 @@ app.run(['$rootScope', '$state', 'CurrentUser', function($rootScope, $state,  Cu
     return isStateChangeAllowed;
   };
 
-  $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
-    console.log('[ AUTH ] : State change success.... to '+toState.name);
+  $rootScope.$on('$stateChangeSuccess', function(event, toState){
+    console.log('[ AUTH ] : State change success.... to ' + toState.name);
   });
 
-  $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
-    console.log('[ AUTH ] : State change initiated.... to '+toState.name+' from '+fromState.name );
-    if(toState.name == 'login'){
-      return
+  $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState){
+    console.log('[ AUTH ] : State change initiated.... to ' + toState.name + ' from ' + fromState.name );
+    if(toState.name === 'login'){
+      return;
     }
 
     if(fromState.name !== ''){
