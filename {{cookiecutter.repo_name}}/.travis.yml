@@ -4,3 +4,17 @@ node_js:
 before_script:
   - 'npm install -g bower grunt-cli'
   - 'bower install'
+
+deploy:
+  provider: heroku
+  buildpack: python
+  strategy: api
+  api_key:
+    # travis encrypt $(heroku auth:token) --add deploy.api_key
+    secure: <add_heroku_auth_token_here>
+  app:
+    master: {{ cookiecutter.repo_name }}-dev
+    qa: {{ cookiecutter.repo_name }}-qa
+    prod: {{ cookiecutter.repo_name }}-prod
+  on:
+    repo: {{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
