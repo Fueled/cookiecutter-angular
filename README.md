@@ -19,7 +19,7 @@ You need to have `cookiecutter` installed in order to scafold a new project from
 
 After the installation is successful, you can create a new django project by simply running:
 
-    cookiecutter https://github.com/Fueled/cookiecutter-web.git
+    cookiecutter https://github.com/Fueled/cookiecutter-angular
 
 It will ask you to some questions, after which it will create a new project in your current working directory
 
