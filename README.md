@@ -21,7 +21,18 @@ After the installation is successful, you can create a new django project by sim
 
     cookiecutter https://github.com/Fueled/cookiecutter-angular
 
-It will ask you to some questions, after which it will create a new project in your current working directory
+It will ask you to some questions as follows, after which it will create a new project in your current working directory
+
+* project_name
+* base_app_name
+* repo_name
+* github_username
+* github_reponame
+* project_description
+* timezone
+* version
+* api_base_url
+* api_auth_url
 
 Once the cookiecutter is finishes, you'll have:
 
