@@ -1,4 +1,4 @@
-cookiecutter-web
+cookiecutter-angular
 ====================
 
 Project template for angular-js based web projects, with a login.
