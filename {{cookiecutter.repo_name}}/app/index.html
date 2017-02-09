@@ -1,81 +1,35 @@
 <!doctype html>
-<html class="no-js" ng-app="{{cookiecutter.base_app_name}}">
-  <head>
-    <script type="text/javascript">
-
-      var DEBUG = true;
-
-      if(!DEBUG){ console.log = function(){}; console.info = function(){}; console.error = function(){}; console.warn = function(){}; }
-
-    </script>
+<html class="no-js" ng-app="{{cookiecutter.base_app_name}}" ng-controller="AppCtrl as appCtrl">
+<head>
     <meta charset="utf-8">
-    <title>{{cookiecutter.project_name}}</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width,maximum-scale=1.0, initial-scale=0.8">
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <!-- build:css styles/vendor.css -->
-    <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
-    <!-- endbower -->
-    <!-- endbuild -->
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.4.7/css/foundation.min.css" />
-    <!-- DEV NOTE: Currently linked from CDN, don't install foundation via Bower, as it injects Foundation JS -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{{cookiecutter.base_app_name}}</title>
+
     <!-- build:css styles/main.css -->
     <link rel="stylesheet" href="styles/main.css" />
     <!-- endbuild -->
-  </head>
-  <body>
-    <!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
+</head>
+<body class="{{ appCtrl.bodyClasses }}" ng-class="{shrink:boolChangeClass}">
 
-    <!-- Add your site or application content here -->
-    <div class="main-container" ng-controller="AppCtrl">
-      <div ng-include="'views/partials/header.html'"></div>
-      <div class="view" ui-view></div>
-    </div>
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-     <script>
-       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    <main ng-controller="AppCtrl">
+        <div ng-include="'views/partials/header.html'"></div>
+        <div class="view" ui-view></div>
+        <div ng-include="'views/partials/footer.html'"></div>
+    </main>
 
-       ga('create', 'UA-XXXXX-X');
-       ga('send', 'pageview');
-    </script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-XXXXX-X');
+      ga('send', 'pageview');
+   </script>
 
-    <!-- build:js scripts/oldieshim.js -->
-    <!--[if lt IE 9]>
-    <script src="bower_components/es5-shim/es5-shim.js"></script>
-    <script src="bower_components/json3/lib/json3.min.js"></script>
-    <![endif]-->
-    <!-- endbuild -->
-
-
-    <!-- build:js scripts/vendor.js -->
-    <!-- bower:js -->
-    <!-- endbower -->
-    <!-- endbuild -->
-
-    <!-- build:js scripts/scripts.js -->
-    <script src="scripts/app.js"></script>
-    <script src="scripts/settings.js"></script>
-    <script src="scripts/config.js"></script>
-    <script src="scripts/router.js"></script>
-
-    <!-- MODELS -->
-    <script src="scripts/models/Base.js"></script>
-
-    <!-- SERVICES -->
-    <script src="scripts/services/CurrentUser.js"></script>
-
-    <!-- CONTROLLERS -->
-    <script src="scripts/controllers/AppCtrl.js"></script>
-    <script src="scripts/controllers/HomeCtrl.js"></script>
-    <script src="scripts/controllers/LoginCtrl.js"></script>
-    <script src="scripts/controllers/DashboardCtrl.js"></script>
-
-    <!-- endbuild -->
+    <script src="scripts/vendor.js"></script>
+    <script src="scripts/main.js"></script>
+    <script src="partials/partials.min.js"></script>
+    <script src="scripts/ngConstants.js"></script>
 </body>
 </html>

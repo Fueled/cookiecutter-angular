@@ -5,3 +5,6 @@ dist
 bower_components
 app/styles/*.css
 app/styles/*.css.map
+access.log
+
+npm-debug.log
