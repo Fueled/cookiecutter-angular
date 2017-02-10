@@ -35,6 +35,18 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
         data: {
             bodyClasses: 'dashboard'
         }
+    })
+    .state('404', {
+        url: '/404',
+        isAuthenticationRequired: false,
+        isSubscriptionRequired: false,
+        controller: function(){
+            // blank controller
+        },
+        templateUrl: 'views/pages/404.html',
+        data: {
+            bodyClasses: 'four generic'
+        }
     });
 }]);
 
