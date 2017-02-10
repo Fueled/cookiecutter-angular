@@ -11,12 +11,12 @@
     "gulp": "^3.6.0",
     "gulp-autoprefixer": "^3.1.1",
     "gulp-concat": "^2.6.1",
+    "gulp-html-assets": "0.0.14",
     "gulp-imagemin": "^3.0.3",
     "gulp-jshint": "^2.0.1",
     "gulp-ng-constant": "^1.1.0",
     "gulp-order": "^1.1.1",
     "gulp-plumber": "^1.1.0",
-    "gulp-rev-easy": "^1.2.3",
     "gulp-sass": "^2.3.2",
     "gulp-size": "^2.1.0",
     "gulp-svgmin": "^1.2.2",
@@ -25,7 +25,8 @@
     "jshint": "^2.9.3",
     "jshint-stylish": "^2.2.1",
     "main-bower-files": "^2.0.0",
-    "morgan": "^1.7.0"
+    "morgan": "^1.7.0",
+    "path": "^0.12.7"
   },
   "engines": {
     "node": ">=0.10.0"
@@ -36,6 +37,7 @@
   },
   "devDependencies": {
     "gulp-ng-html2js": "^0.2.2",
+    "gulp-uncache": "^0.4.0-beta1",
     "gulp-uncss": "^1.0.6"
   }
 }

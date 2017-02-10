@@ -13,9 +13,11 @@ var sass           = require('gulp-sass');
 var uglify         = require('gulp-uglify');
 var size           = require('gulp-size');
 var config         = require('config');
-var rev            = require('gulp-rev');
-var useref         = require('gulp-useref');
-var reveasy        = require('gulp-rev-easy');
+var gulpHTMLAssets = require('gulp-html-assets');
+var fs             = require('fs');
+var path           = require('path');
+
+var manifest       = {};
 
 // Plugins
 var mainBowerFiles = require('main-bower-files');
@@ -95,13 +97,22 @@ gulp.task('html', function () {
 });
 
 gulp.task('version-assets', function () {
-    return gulp.src(['app/**/*.html', '!app/bower_components/**/*'])
-    .pipe(reveasy({
-        revMode:'dom',
-        fileTypes:['css', 'js'],
-        revType:'date',
-    }))
-    .pipe(gulp.dest('dist'))
+    var stream = gulp.src(['dist/index.html'])
+        .pipe(gulpHTMLAssets({
+            root: path.resolve('dist'),
+            dest: './dist',
+            file: '[name]' + '-[hash]' + '.[ext]',
+            prefix: '',
+            indexes: manifest
+
+        }))
+        .pipe(gulp.dest('dist'));
+
+    stream.on('end', function () {
+        fs.writeFileSync('manifest.json', JSON.stringify(manifest, null, 2));
+    });
+
+    return stream;
 });
 
 /**
@@ -115,7 +126,7 @@ gulp.task('partials', function () {
         prefix: "views/partials/"
     }))
     .pipe(concat("partials.min.js"))
-    // .pipe(uglify())
+    .pipe(uglify())
     .pipe(gulp.dest("./dist/partials"));
 
 });
@@ -182,7 +193,11 @@ gulp.task('default', function(){
     return gulp.start(['html', 'sass', 'scripts', 'config', 'images', 'favicon', 'partials']);
 });
 
-gulp.task('build', ['default', 'version-assets'])
+/**
+ * Build task
+ * - Build and cache assets
+ */
+gulp.task('build', ['default', 'version-assets']);
 
 /**
 *
