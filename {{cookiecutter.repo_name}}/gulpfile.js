@@ -13,6 +13,9 @@ var sass           = require('gulp-sass');
 var uglify         = require('gulp-uglify');
 var size           = require('gulp-size');
 var config         = require('config');
+var rev            = require('gulp-rev');
+var useref         = require('gulp-useref');
+var reveasy        = require('gulp-rev-easy');
 
 // Plugins
 var mainBowerFiles = require('main-bower-files');
@@ -52,7 +55,7 @@ gulp.task('component-scripts', function () {
     return gulp.src(mainBowerFiles(['**/*.js']))
     .pipe(concat('vendor.js'))
     .pipe(plumber())
-    // .pipe(uglify())
+    .pipe(uglify())
     .pipe(gulp.dest('dist/scripts'))
     .pipe(size());
 });
@@ -70,7 +73,7 @@ gulp.task('scripts', ['component-scripts'], function () {
     return gulp.src([appPath + 'scripts/**/*.js', 'js/**/*.js'])
     .pipe(concat('main.js'))
     .pipe(plumber())
-    // .pipe(uglify())
+    .pipe(uglify())
     .pipe(gulp.dest('dist/scripts'))
     .pipe(size());
 });
@@ -89,6 +92,16 @@ gulp.task('html', function () {
     .pipe(plumber())
     .pipe(gulp.dest('dist'))
     .pipe(size());
+});
+
+gulp.task('version-assets', function () {
+    return gulp.src(['app/**/*.html', '!app/bower_components/**/*'])
+    .pipe(reveasy({
+        revMode:'dom',
+        fileTypes:['css', 'js'],
+        revType:'date',
+    }))
+    .pipe(gulp.dest('dist'))
 });
 
 /**
@@ -138,7 +151,9 @@ gulp.task('config', function () {
         constants: {'settings': config},
         wrap: false,
         stream: true
-    }).pipe(gulp.dest('./dist/scripts'));
+    })
+    .pipe(uglify())
+    .pipe(gulp.dest('./dist/scripts'));
 });
 
 
@@ -166,6 +181,8 @@ gulp.task('browser-sync', function() {
 gulp.task('default', function(){
     return gulp.start(['html', 'sass', 'scripts', 'config', 'images', 'favicon', 'partials']);
 });
+
+gulp.task('build', ['default', 'version-assets'])
 
 /**
 *

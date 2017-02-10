@@ -16,6 +16,7 @@
     "gulp-ng-constant": "^1.1.0",
     "gulp-order": "^1.1.1",
     "gulp-plumber": "^1.1.0",
+    "gulp-rev-easy": "^1.2.3",
     "gulp-sass": "^2.3.2",
     "gulp-size": "^2.1.0",
     "gulp-svgmin": "^1.2.2",
