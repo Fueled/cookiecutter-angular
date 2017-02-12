@@ -194,12 +194,6 @@ gulp.task('default', function(){
 });
 
 /**
- * Build task
- * - Build and cache assets
- */
-gulp.task('build', ['default', 'version-assets']);
-
-/**
 *
 * Watch task
 * - Runs sass, browser-sync and scripts

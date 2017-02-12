@@ -33,7 +33,7 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "postinstall": "./node_modules/bower/bin/bower install --config.interactive=false && gulp",
-    "start": "node server.js"
+    "start": "node server.js",
+    "postinstall": "./node_modules/bower/bin/bower install --config.interactive=false && gulp && gulp version-assets"
   }
 }
