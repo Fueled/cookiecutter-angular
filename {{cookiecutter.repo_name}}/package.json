@@ -22,6 +22,7 @@
     "gulp-svgmin": "^1.2.2",
     "gulp-uglify": "^2.0.0",
     "imagemin-pngquant": "^5.0.0",
+    "gulp-ng-html2js": "^0.2.2",
     "jshint": "^2.9.3",
     "jshint-stylish": "^2.2.1",
     "main-bower-files": "^2.0.0",
@@ -34,10 +35,5 @@
   "scripts": {
     "postinstall": "./node_modules/bower/bin/bower install --config.interactive=false && gulp",
     "start": "node server.js"
-  },
-  "devDependencies": {
-    "gulp-ng-html2js": "^0.2.2",
-    "gulp-uncache": "^0.4.0-beta1",
-    "gulp-uncss": "^1.0.6"
   }
 }
