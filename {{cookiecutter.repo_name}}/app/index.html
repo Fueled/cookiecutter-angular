@@ -8,7 +8,7 @@
 
     <link rel="stylesheet" href="styles/main.css" />
 </head>
-<body class="{{ appCtrl.bodyClasses }}" ng-class="{shrink:boolChangeClass}">
+<body {% raw %}class="{{ appCtrl.bodyClasses }}" ng-class="{shrink:boolChangeClass}"{% endraw %}>
 
     <main ng-controller="AppCtrl">
         <div ng-include="'views/partials/header.html'"></div>

@@ -7,15 +7,15 @@ app.config(['$httpProvider', 'RestangularProvider', 'settings', '$locationProvid
 
 
     $httpProvider.defaults.useXDomain = true;
-    $httpProvider.defaults.withCredentials = true;
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
 
+    // Make sure ! doesn't show up in the url.
     $locationProvider.hashPrefix('');
 
     RestangularProvider.setBaseUrl(settings.API_BASE_URL);
 
     // with credentials to make sure cookies related to aps
-    RestangularProvider.setDefaultHttpFields({cache: false, withCredentials:true});
+    RestangularProvider.setDefaultHttpFields({cache: false});
     RestangularProvider.setDefaultHeaders({'Content-Type': 'application/json'});
     RestangularProvider.setFullResponse(true);
     RestangularProvider.setDefaultRequestParams({format: 'json'});
