@@ -1,6 +1,7 @@
 language: node_js
 node_js:
-  - '0.10'
-before_script:
-  - 'npm install -g bower grunt-cli'
-  - 'bower install'
+  - "5.11"
+
+script:
+  - gulp
+  - gulp version-assets

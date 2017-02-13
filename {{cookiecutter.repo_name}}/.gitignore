@@ -31,5 +31,6 @@ dist
 bower_components
 app/styles/*.css
 app/styles/*.css.map
+npm-debug.log
 yarn.lock
 access.log

@@ -1,0 +1,6 @@
+{
+    "API_BASE_URL": "{{ cookiecutter.api_base_url }}",
+    "LOGIN_OR_REGISTER_PATH": "login",
+    "LOGOUT_PATH": "logout",
+    "CURRENT_USER_PATH": "me"
+}

@@ -1,149 +1,209 @@
 'use strict';
-// generated on 2014-10-07 using generator-gulp-webapp 0.1.0
 
-var gulp = require('gulp');
-var gutil = require('gulp-util');
-var magenta = gutil.colors.magenta;
+// Gulp Plugins
+var gulp           = require('gulp');
+var prefix         = require('gulp-autoprefixer');
+var concat         = require('gulp-concat');
+var imagemin       = require('gulp-imagemin');
+var ngConstant     = require('gulp-ng-constant');
+var pngquant       = require('imagemin-pngquant');
+var ngHtml2Js      = require("gulp-ng-html2js");
+var plumber        = require('gulp-plumber');
+var sass           = require('gulp-sass');
+var uglify         = require('gulp-uglify');
+var size           = require('gulp-size');
+var config         = require('config');
+var gulpHTMLAssets = require('gulp-html-assets');
+var fs             = require('fs');
+var path           = require('path');
 
-// load plugins
-var plugins = require('gulp-load-plugins')();
+var manifest       = {};
+
+// Plugins
 var mainBowerFiles = require('main-bower-files');
+var browserSync    = require('browser-sync');
+
+// Paths
+var appPath        = './app/';
 
 
-gulp.task('styles', function () {
-    var path = require('path');
-    return gulp.src('app/styles/main.scss')
-        .pipe(plugins.compass({
-          project: path.join(__dirname),
-          sass: 'app/styles',
-          css: 'app/styles'
-        }))
-        .pipe(plugins.autoprefixer('last 1 version'))
-        .pipe(gulp.dest('app/styles'))
-        .pipe(plugins.size())
+/**
+*
+* Styles
+* - Compile
+* - Catch errors (gulp-plumber)
+* - Autoprefixer
+*
+**/
+gulp.task('sass', function() {
+    gulp.src('styles/**/*.scss')
+    .pipe(sass({outputStyle: 'compressed'}))
+    .on('error', sass.logError)
+    .pipe(plumber())
+    .pipe(prefix('last 5 versions'))
+    .pipe(gulp.dest('dist/styles'));
 });
 
-gulp.task('scripts', function () {
-    return gulp.src('app/scripts/**/*.js')
-        .pipe(plugins.jshint())
-        .pipe(plugins.jshint.reporter(require('jshint-stylish')))
-        .pipe(plugins.size());
+
+/**
+*
+* Components scripts
+* - Retrieve all bower dependencies
+* - Concatenate them into one file
+* - Uglify file
+*
+**/
+gulp.task('component-scripts', function () {
+    return gulp.src(mainBowerFiles(['**/*.js']))
+    .pipe(concat('vendor.js'))
+    .pipe(plumber())
+    .pipe(uglify())
+    .pipe(gulp.dest('dist/scripts'))
+    .pipe(size());
 });
 
-gulp.task('html', ['styles', 'scripts'], function () {
-    var jsFilter = plugins.filter('**/*.js', {restore: true});
-    var cssFilter = plugins.filter('**/*.css', {restore: true});
 
+/**
+*
+* Main Scripts
+* - Retrieve all Javascript (angular and non-angualr)
+* - Concatenate them into one file
+* - Uglify file
+*
+**/
+gulp.task('scripts', ['component-scripts'], function () {
+    return gulp.src([appPath + 'scripts/**/*.js', 'js/**/*.js'])
+    .pipe(concat('main.js'))
+    .pipe(plumber())
+    .pipe(uglify())
+    .pipe(gulp.dest('dist/scripts'))
+    .pipe(size());
+});
+
+
+/**
+*
+* HTML
+* - Take all HTML files
+* - Check everything is chill
+* - Put it somewhere useful like the dist folder
+*
+**/
+gulp.task('html', function () {
     return gulp.src(['app/**/*.html', '!app/bower_components/**/*'])
-        .pipe(plugins.useref({searchPath: '{.tmp,app}'}))
-        .pipe(jsFilter)
-        .pipe(plugins.uglify())
-        .pipe(jsFilter.restore)
-        .pipe(cssFilter)
-        .pipe(plugins.csso())
-        .pipe(cssFilter.restore)
-        .pipe(plugins.rev())
-        .pipe(plugins.useref())
-        .pipe(plugins.revReplace())
-        .pipe(gulp.dest('dist'))
-        .pipe(plugins.size());
+    .pipe(plumber())
+    .pipe(gulp.dest('dist'))
+    .pipe(size());
 });
 
-gulp.task('images', function () {
-    return gulp.src('app/images/**/*.*')
-        .pipe(plugins.cache(plugins.imagemin({
-            optimizationLevel: 3,
-            progressive: true,
-            interlaced: true
-        })))
-        .pipe(gulp.dest('dist/images'))
-        .pipe(plugins.size());
-});
+gulp.task('version-assets', function () {
+    var stream = gulp.src(['dist/index.html'])
+        .pipe(gulpHTMLAssets({
+            root: path.resolve('dist'),
+            dest: './dist',
+            file: '[name]' + '-[hash]' + '.[ext]',
+            prefix: '',
+            indexes: manifest
 
-gulp.task('fonts', function () {
-  var bowerFiles = mainBowerFiles();
-
-  bowerFiles.push('app/fonts/**/*.*');
-
-    return gulp.src(bowerFiles)
-        .pipe(plugins.filter('**/*.{eot,svg,ttf,woff}'))
-        .pipe(plugins.flatten())
-        .pipe(gulp.dest('dist/fonts'))
-        .pipe(plugins.size());
-});
-
-gulp.task('extras', function () {
-    return gulp.src(['app/*.*', '!app/*.html'], { dot: true })
+        }))
         .pipe(gulp.dest('dist'));
-});
 
-gulp.task('clean', function () {
-    return gulp.src(['.tmp', 'dist'], { read: false }).pipe(plugins.clean());
-});
-
-gulp.task('build', ['clean'], function(){
-  return gulp.start(['wiredep', 'html', 'images', 'fonts', 'extras']);
-});
-
-gulp.task('default', ['clean'], function(){
-    return gulp.start('serve');
-});
-
-gulp.task('connect', function () {
-    var connect = require('connect');
-    var serveStatic = require('serve-static');
-    var app = connect()
-        .use(require('connect-livereload')({ port: 35729 }))
-        .use(serveStatic('app'))
-        .use(serveStatic('.tmp'));
-
-    var port = 9003;
-
-    require('http').createServer(app)
-        .listen(port)
-        .on('listening', function () {
-            gutil.log('Started connect web server at : '+ magenta('http://localhost:'+port.toString()));
-        });
-});
-
-gulp.task('serve', ['wiredep', 'styles', 'watch'], function () {
-    gulp.start('connect');
-    require('opn')('http://localhost:9003');
-});
-
-// inject bower components
-gulp.task('wiredep', function () {
-    var wiredep = require('wiredep').stream;
-
-    gulp.src('app/styles/*.scss')
-        .pipe(wiredep({
-            directory: 'app/bower_components'
-        }))
-        .pipe(gulp.dest('app/styles'));
-
-    gulp.src('app/*.html')
-        .pipe(wiredep({
-            directory: 'app/bower_components'
-        }))
-        .pipe(gulp.dest('app'));
-});
-
-gulp.task('watch', function () {
-    var server = require('gulp-livereload');
-
-    // watch for changes
-
-    gulp.watch([
-        'app/**/*.html',
-        '.tmp/styles/**/*.css',
-        'app/scripts/**/*.js',
-        'app/images/**/*'
-    ]).on('change', function (file) {
-        server.changed(file.path);
+    stream.on('end', function () {
+        fs.writeFileSync('manifest.json', JSON.stringify(manifest, null, 2));
     });
 
-    gulp.watch('app/styles/**/*.scss', ['styles']);
-    gulp.watch('app/scripts/**/*.js', ['scripts']);
-    gulp.watch('app/images/**/*', ['images']);
-    gulp.watch('bower.json', ['wiredep']);
+    return stream;
+});
+
+/**
+ * ng include has a lot of performance drawbacks, this module creates a template cahce js and loads all the templates
+ * in starting.
+ */
+gulp.task('partials', function () {
+    gulp.src("app/views/partials/*.html")
+    .pipe(ngHtml2Js({
+        moduleName: "{{cookiecutter.base_app_name}}",
+        prefix: "views/partials/"
+    }))
+    .pipe(concat("partials.min.js"))
+    .pipe(uglify())
+    .pipe(gulp.dest("./dist/partials"));
+
+});
+
+gulp.task('favicon', function() {
+    return gulp.src('favicon/*')
+        .pipe(gulp.dest('./dist/favicon'))
+});
+
+gulp.task('images', ['move-svg'], function () {
+    return gulp.src(['images/**/*', '!images/**/*.svg'])
+    .pipe(imagemin({
+        progressive: true,
+        svgoPlugins: [{removeViewBox: false}],
+        use: [pngquant()]
+    }))
+    .pipe(gulp.dest('./dist/images'));
+});
+
+gulp.task('move-svg', function () {
+    return gulp.src('images/**/*.svg')
+    .pipe(gulp.dest('./dist/images'))
+});
+
+
+/**
+ * Task to get server specific values and then create a ng constant file.
+ */
+gulp.task('config', function () {
+    console.log(config)
+    return ngConstant({
+        name: '{{cookiecutter.base_app_name}}.settings',
+        constants: {'settings': config},
+        wrap: false,
+        stream: true
+    })
+    .pipe(uglify())
+    .pipe(gulp.dest('./dist/scripts'));
+});
+
+
+/**
+*
+* BrowserSync.io
+* - Watch CSS, JS & HTML for changes
+* - View project at: localhost:3000
+*
+**/
+gulp.task('browser-sync', function() {
+    browserSync.init(['./dist/styles/*.css', './dist/scripts/**/*.js', './dist/*.html'], {
+        server: {
+            baseDir: './dist',
+        }
+    });
+});
+
+/**
+*
+* Default task
+* - Builds images, scripts and sass
+*
+**/
+gulp.task('default', function(){
+    return gulp.start(['html', 'sass', 'scripts', 'config', 'images', 'favicon', 'partials']);
+});
+
+/**
+*
+* Watch task
+* - Runs sass, browser-sync and scripts
+* - Watchs for file changes for scripts and sass/css
+*
+**/
+gulp.task('watch', ['default', 'browser-sync'], function () {
+    gulp.watch('styles/**/*.scss', ['sass']);
+    gulp.watch('app/**/*.html', ['html', 'partials']);
+    gulp.watch(appPath + '**/*.js', ['scripts', 'config']);
+    gulp.watch('js/**/*.js', ['scripts', 'config']);
+    gulp.watch('config/*.json', ['config']);
 });
