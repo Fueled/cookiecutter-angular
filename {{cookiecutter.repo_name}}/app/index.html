@@ -26,6 +26,12 @@
    </script>
 
     <script src="scripts/vendor.js"></script>
+    {% if cookiecutter.sentryDsn %}
+    <!-- Should be initialized after angular has been initialized-->
+    <script src="https://cdn.ravenjs.com/3.10.0/angular/raven.min.js" crossorigin="anonymous"></script>
+    <!-- This CDN build auto-initializes the Angular plugin. -->
+    <script>Raven.config("{{ cookiecutter.sentryDsn }}").install();</script>
+    {% endif %}
     <script src="scripts/main.js"></script>
     <script src="partials/partials.min.js"></script>
     <script src="scripts/ngConstants.js"></script>

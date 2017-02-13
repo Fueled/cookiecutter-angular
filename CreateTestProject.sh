@@ -8,8 +8,7 @@ echo "Hello World Created"
 cd hello-world/;
 
 echo "Installing gulp and bower globally"
-npm install -g gulp bower
+npm install -g gulp bower yarn
 
 echo "Installing project Dependencies"
-npm install;
-bower install;
+yarn install;
