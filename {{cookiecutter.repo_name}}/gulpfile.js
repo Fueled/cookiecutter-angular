@@ -5,6 +5,7 @@ var gulp           = require('gulp');
 var prefix         = require('gulp-autoprefixer');
 var concat         = require('gulp-concat');
 var imagemin       = require('gulp-imagemin');
+var jshint         = require('gulp-jshint');
 var ngConstant     = require('gulp-ng-constant');
 var pngquant       = require('imagemin-pngquant');
 var ngHtml2Js      = require("gulp-ng-html2js");
@@ -84,10 +85,12 @@ gulp.task('component-scripts', function () {
 * - Uglify file
 *
 **/
-gulp.task('scripts', ['component-scripts'], function () {
+gulp.task('scripts', ['config'], function () {
     return gulp.src([appPath + 'scripts/**/*.js', 'js/**/*.js'])
-    .pipe(concat('main.js'))
     .pipe(plumber())
+    .pipe(jshint())
+    .pipe(jshint.reporter(require('jshint-stylish')))
+    .pipe(concat('main.js'))
     .pipe(uglify())
     .pipe(gulp.dest('dist/scripts'))
     .pipe(size());
@@ -201,8 +204,9 @@ gulp.task('browser-sync', function() {
 *
 **/
 gulp.task('default', function(){
-    return gulp.start(['html', 'sass', 'scripts', 'config', 'images', 'favicon', 'partials']);
+    return gulp.start(['html', 'sass', 'component-scripts', 'scripts', 'config', 'images', 'favicon', 'partials']);
 });
+
 
 /**
 *
