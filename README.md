@@ -33,6 +33,8 @@ It will ask you to some questions as follows, after which it will create a new p
 * version
 * api_base_url
 * api_auth_url
+* server_auth_username
+* server_auth_password
 
 Once the cookiecutter is finishes, you'll have:
 
