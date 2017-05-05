@@ -71,7 +71,7 @@ app.run(['$rootScope', '$state', 'CurrentUser', function($rootScope, $state, Cur
     };
 
     var redirectUser = function(event, toState, fromState) {
-        if (toState.url == '/404' && fromState.name == ''){
+        if (toState.url === '/404' && fromState.name === ''){
             event.preventDefault();
             $state.go('home', { reload: true });
             return;
@@ -111,7 +111,7 @@ app.run(['$rootScope', '$state', 'CurrentUser', function($rootScope, $state, Cur
     });
 
     $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
-        console.log("$stateChangeError", error);
+        console.warn('$stateChangeError', error);
         if (error && error.status == 404){
             event.preventDefault();
             $state.go('404', { reload: true, notify: true });
