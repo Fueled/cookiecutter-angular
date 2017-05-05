@@ -5,12 +5,21 @@ var morgan          = require('morgan');
 var logger          = morgan('combined');
 var fs              = require('fs');
 var accessLogStream = fs.createWriteStream(__dirname + '/access.log', {flags: 'a'})
+var hsts            = require('hsts');
+var helmet          = require('helmet');
 
 var auth = require('http-auth');
 var basic = auth.basic({
     realm: "Private Area.",
     file: __dirname + "/users.htpasswd"
 });
+
+app.use(helmet());
+app.use(hsts({
+  maxAge: 15552000,
+  force: true,
+  preload: true
+}));
 
 app.use(compression());
 app.use(morgan('combined', {stream: accessLogStream}));
