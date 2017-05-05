@@ -6,8 +6,15 @@ var logger          = morgan('combined');
 var fs              = require('fs');
 var accessLogStream = fs.createWriteStream(__dirname + '/access.log', {flags: 'a'})
 
+var auth = require('http-auth');
+var basic = auth.basic({
+    realm: "Private Area.",
+    file: __dirname + "/users.htpasswd"
+});
+
 app.use(compression());
 app.use(morgan('combined', {stream: accessLogStream}));
+app.use(auth.connect(basic));
 app.use(express.static("" + __dirname + "/dist"));
 
 // Setup route.

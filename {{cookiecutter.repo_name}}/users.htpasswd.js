@@ -1,0 +1,1 @@
+{{cookiecutter.server_auth_username}}:{{cookiecutter.server_auth_password}}
