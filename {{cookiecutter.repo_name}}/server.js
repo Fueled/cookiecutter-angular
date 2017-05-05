@@ -9,4 +9,11 @@ var accessLogStream = fs.createWriteStream(__dirname + '/access.log', {flags: 'a
 app.use(compression());
 app.use(morgan('combined', {stream: accessLogStream}));
 app.use(express.static("" + __dirname + "/dist"));
-app.listen(process.env.PORT || 5000);
+
+// Setup route.
+app.get('/*', function(req, res){
+  res.sendFile(__dirname + '/dist/index.html');
+});
+
+app.listen(process.env.PORT || 8000);
+console.log("Node server up at http://localhost:" + (process.env.PORT || 8000));

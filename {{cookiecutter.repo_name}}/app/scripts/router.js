@@ -2,10 +2,16 @@
 
 var app = angular.module('{{cookiecutter.base_app_name}}');
 
-app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
-    //
-    // For any unmatched url, redirect to /
-    $urlRouterProvider.otherwise('/404');
+app.config([
+    '$locationProvider',
+    '$stateProvider',
+    '$urlRouterProvider',
+    function(
+        $locationProvider,
+        $stateProvider,
+        $urlRouterProvider
+    ){
+
     //
     // Now set up the states
     $stateProvider
@@ -47,6 +53,12 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             bodyClasses: 'four generic'
         }
     });
+
+    // Enable HTML5 mode (no hashbang)
+    $locationProvider.html5Mode(true);
+
+    // 404 any pages that don't match
+    $urlRouterProvider.otherwise('/404');
 }]);
 
 app.run(['$rootScope', '$state', 'CurrentUser', function($rootScope, $state, CurrentUser) {

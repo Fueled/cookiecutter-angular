@@ -16,6 +16,7 @@ var config         = require('config');
 var gulpHTMLAssets = require('gulp-html-assets');
 var fs             = require('fs');
 var path           = require('path');
+var server         = require('gulp-develop-server');
 
 var manifest       = {};
 
@@ -26,6 +27,18 @@ var browserSync    = require('browser-sync');
 // Paths
 var appPath        = './app/';
 
+
+/**
+*
+* Server
+* - Run server.js
+*
+**/
+gulp.task('server:start', function() {
+    server.listen({
+        path: './server.js'
+    });
+});
 
 /**
 *
@@ -177,9 +190,7 @@ gulp.task('config', function () {
 **/
 gulp.task('browser-sync', function() {
     browserSync.init(['./dist/styles/*.css', './dist/scripts/**/*.js', './dist/*.html'], {
-        server: {
-            baseDir: './dist',
-        }
+        proxy: 'localhost:8000'
     });
 });
 
@@ -200,7 +211,7 @@ gulp.task('default', function(){
 * - Watchs for file changes for scripts and sass/css
 *
 **/
-gulp.task('watch', ['default', 'browser-sync'], function () {
+gulp.task('watch', ['server:start', 'default', 'browser-sync'], function () {
     gulp.watch('styles/**/*.scss', ['sass']);
     gulp.watch('app/**/*.html', ['html', 'partials']);
     gulp.watch(appPath + '**/*.js', ['scripts', 'config']);
