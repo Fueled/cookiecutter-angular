@@ -8,7 +8,7 @@ Project template for angular-js based web projects, with a login.
 * Angular JS 1.5.8
 * Foundation 5.4.1
 * Gulp
-* SASS, Live-Reloading Server
+* Sass, Live-Reloading Server
 * Restangular
 
 ## Getting Started
