@@ -7,9 +7,13 @@ Project template for angular-js based web projects, with a login.
 
 * Angular JS 1.5.8
 * Foundation 5.4.1
-* Gulp
-* Sass, Live-Reloading Server
+* Gulp – Scss, BrowserSync, image handling
 * Restangular
+* HTML5 URL structure (no hashbang)
+
+## Optional features
+
+* Server-side HTML auth (`enable_server_auth`)
 
 ## Getting Started
 
@@ -33,6 +37,7 @@ It will ask you to some questions as follows, after which it will create a new p
 * version
 * api_base_url
 * api_auth_url
+* enable_server_auth
 * server_auth_username
 * server_auth_password
 
@@ -45,7 +50,7 @@ Now the only thing you'll need to do is:
 1. `cd` into the new `repo_name` folder
 2. run `npm install`
 3. run `bower install`
-4. Run `gulp`
+4. run `gulp`
 
 Read the instructions in `README.md`, inside the project to get much detailed instructions.
 

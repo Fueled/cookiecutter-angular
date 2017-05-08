@@ -8,11 +8,13 @@ var hsts            = require('hsts');
 var helmet          = require('helmet');
 var accessLogStream = fs.createWriteStream(__dirname + '/access.log', {flags: 'a'});
 
+{%- if cookiecutter.enable_server_auth == 'y' and cookiecutter.server_auth_username and cookiecutter.server_auth_password %}
 var auth = require('http-auth');
 var basic = auth.basic({
     realm: "Private Area.",
     file: __dirname + "/users.htpasswd"
 });
+{%- endif %}
 
 app.use(helmet());
 app.use(hsts({
@@ -23,7 +25,9 @@ app.use(hsts({
 
 app.use(compression());
 app.use(morgan('combined', {stream: accessLogStream}));
+{%- if cookiecutter.enable_server_auth == 'y' and cookiecutter.server_auth_username and cookiecutter.server_auth_password %}
 app.use(auth.connect(basic));
+{%- endif %}
 app.use(express.static("" + __dirname + "/dist"));
 
 // Setup route.
