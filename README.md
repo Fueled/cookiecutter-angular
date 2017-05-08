@@ -7,9 +7,9 @@ Project template for angular-js based web projects, with a login.
 
 * Angular JS 1.5.8
 * Foundation 5.4.1
-* Gulp
-* Sass, Live-Reloading Server
+* Gulp – Scss, BrowserSync, image handling
 * Restangular
+* HTML5 URL structure (no hashbang)
 
 ## Getting Started
 
@@ -45,7 +45,7 @@ Now the only thing you'll need to do is:
 1. `cd` into the new `repo_name` folder
 2. run `npm install`
 3. run `bower install`
-4. Run `gulp`
+4. run `gulp`
 
 Read the instructions in `README.md`, inside the project to get much detailed instructions.
 
