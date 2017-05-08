@@ -2,10 +2,16 @@
 
 var app = angular.module('{{cookiecutter.base_app_name}}');
 
-app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
-    //
-    // For any unmatched url, redirect to /
-    $urlRouterProvider.otherwise('/404');
+app.config([
+    '$locationProvider',
+    '$stateProvider',
+    '$urlRouterProvider',
+    function(
+        $locationProvider,
+        $stateProvider,
+        $urlRouterProvider
+    ){
+
     //
     // Now set up the states
     $stateProvider
@@ -47,6 +53,12 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             bodyClasses: 'four generic'
         }
     });
+
+    // Enable HTML5 mode (no hashbang)
+    $locationProvider.html5Mode(true);
+
+    // 404 any pages that don't match
+    $urlRouterProvider.otherwise('/404');
 }]);
 
 app.run(['$rootScope', '$state', 'CurrentUser', function($rootScope, $state, CurrentUser) {
@@ -59,7 +71,7 @@ app.run(['$rootScope', '$state', 'CurrentUser', function($rootScope, $state, Cur
     };
 
     var redirectUser = function(event, toState, fromState) {
-        if (toState.url == '/404' && fromState.name == ''){
+        if (toState.url === '/404' && fromState.name === ''){
             event.preventDefault();
             $state.go('home', { reload: true });
             return;
@@ -99,7 +111,7 @@ app.run(['$rootScope', '$state', 'CurrentUser', function($rootScope, $state, Cur
     });
 
     $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
-        console.log("$stateChangeError", error);
+        console.warn('$stateChangeError', error);
         if (error && error.status == 404){
             event.preventDefault();
             $state.go('404', { reload: true, notify: true });

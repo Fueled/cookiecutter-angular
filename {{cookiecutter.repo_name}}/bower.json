@@ -1,5 +1,5 @@
 {
-  "name": "omstars",
+  "name": "{{cookiecutter.project_name|lower|replace(' ', '_')|replace('-', '_')}}",
   "version": "0.0.0",
   "dependencies": {
     "json3": "^3.3.2",

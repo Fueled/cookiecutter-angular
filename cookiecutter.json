@@ -3,10 +3,13 @@
     "base_app_name": "{{ cookiecutter.project_name|lower|replace(' ', '_')|replace('-', '_') }}",
     "repo_name": "{{ cookiecutter.base_app_name|replace('_', '-') }}",
     "github_username": "Fueled",
-    "github_reponame": "",
+    "github_reponame": "{{ cookiecutter.base_app_name|replace('_', '-') }}-frontend",
     "project_description": "add a short project description here",
     "timezone": "UTC",
     "version": "0.1.0",
     "api_base_url": "http://localhost:8000/api/v1/",
-    "api_auth_url": "auth"
+    "api_auth_url": "auth",
+    "base_href": "/",
+    "server_auth_username": "Username",
+    "server_auth_password": "Password"
 }

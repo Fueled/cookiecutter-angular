@@ -5,6 +5,7 @@ var gulp           = require('gulp');
 var prefix         = require('gulp-autoprefixer');
 var concat         = require('gulp-concat');
 var imagemin       = require('gulp-imagemin');
+var jshint         = require('gulp-jshint');
 var ngConstant     = require('gulp-ng-constant');
 var pngquant       = require('imagemin-pngquant');
 var ngHtml2Js      = require("gulp-ng-html2js");
@@ -16,6 +17,7 @@ var config         = require('config');
 var gulpHTMLAssets = require('gulp-html-assets');
 var fs             = require('fs');
 var path           = require('path');
+var server         = require('gulp-develop-server');
 
 var manifest       = {};
 
@@ -26,6 +28,18 @@ var browserSync    = require('browser-sync');
 // Paths
 var appPath        = './app/';
 
+
+/**
+*
+* Server
+* - Run server.js
+*
+**/
+gulp.task('server:start', function() {
+    server.listen({
+        path: './server.js'
+    });
+});
 
 /**
 *
@@ -71,10 +85,12 @@ gulp.task('component-scripts', function () {
 * - Uglify file
 *
 **/
-gulp.task('scripts', ['component-scripts'], function () {
+gulp.task('scripts', ['config'], function () {
     return gulp.src([appPath + 'scripts/**/*.js', 'js/**/*.js'])
-    .pipe(concat('main.js'))
     .pipe(plumber())
+    .pipe(jshint())
+    .pipe(jshint.reporter(require('jshint-stylish')))
+    .pipe(concat('main.js'))
     .pipe(uglify())
     .pipe(gulp.dest('dist/scripts'))
     .pipe(size());
@@ -177,9 +193,7 @@ gulp.task('config', function () {
 **/
 gulp.task('browser-sync', function() {
     browserSync.init(['./dist/styles/*.css', './dist/scripts/**/*.js', './dist/*.html'], {
-        server: {
-            baseDir: './dist',
-        }
+        proxy: 'localhost:8000'
     });
 });
 
@@ -190,8 +204,9 @@ gulp.task('browser-sync', function() {
 *
 **/
 gulp.task('default', function(){
-    return gulp.start(['html', 'sass', 'scripts', 'config', 'images', 'favicon', 'partials']);
+    return gulp.start(['html', 'sass', 'component-scripts', 'scripts', 'config', 'images', 'favicon', 'partials']);
 });
+
 
 /**
 *
@@ -200,7 +215,7 @@ gulp.task('default', function(){
 * - Watchs for file changes for scripts and sass/css
 *
 **/
-gulp.task('watch', ['default', 'browser-sync'], function () {
+gulp.task('watch', ['server:start', 'default', 'browser-sync'], function () {
     gulp.watch('styles/**/*.scss', ['sass']);
     gulp.watch('app/**/*.html', ['html', 'partials']);
     gulp.watch(appPath + '**/*.js', ['scripts', 'config']);

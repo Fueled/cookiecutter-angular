@@ -8,7 +8,7 @@ Project template for angular-js based web projects, with a login.
 * Angular JS 1.5.8
 * Foundation 5.4.1
 * Gulp
-* SASS, Live-Reloading Server
+* Sass, Live-Reloading Server
 * Restangular
 
 ## Getting Started
@@ -33,6 +33,8 @@ It will ask you to some questions as follows, after which it will create a new p
 * version
 * api_base_url
 * api_auth_url
+* server_auth_username
+* server_auth_password
 
 Once the cookiecutter is finishes, you'll have:
 

@@ -2,7 +2,6 @@
 
 var app = angular.module('{{cookiecutter.base_app_name}}.services');
 
-
 app.service('CurrentUser', ['$rootScope', '$q', 'Restangular', '$cookies', 'settings',
     function CurrentUserService($rootScope, $q, Restangular, $cookies, settings) {
         return {
@@ -53,6 +52,6 @@ app.service('CurrentUser', ['$rootScope', '$q', 'Restangular', '$cookies', 'sett
 
                 return promise;
             },
-        }
+        };
     }
 ]);
