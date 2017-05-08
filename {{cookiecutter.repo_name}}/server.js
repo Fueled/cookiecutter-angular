@@ -8,11 +8,13 @@ var hsts            = require('hsts');
 var helmet          = require('helmet');
 var accessLogStream = fs.createWriteStream(__dirname + '/access.log', {flags: 'a'});
 
-var auth = require('http-auth');
-var basic = auth.basic({
-    realm: "Private Area.",
-    file: __dirname + "/users.htpasswd"
-});
+{%- if cookiecutter.enable_server_auth == 'y' && cookiecutter.server_auth_username && cookiecutter.server_auth_password %}
+  var auth = require('http-auth');
+  var basic = auth.basic({
+      realm: "Private Area.",
+      file: __dirname + "/users.htpasswd"
+  });
+{%- endif %}
 
 app.use(helmet());
 app.use(hsts({

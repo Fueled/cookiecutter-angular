@@ -11,6 +11,10 @@ Project template for angular-js based web projects, with a login.
 * Restangular
 * HTML5 URL structure (no hashbang)
 
+## Optional features
+
+* Server-side HTML auth (`enable_server_auth`)
+
 ## Getting Started
 
 You need to have `cookiecutter` installed in order to scafold a new project from this template. If you have `pip` installed, you simply do this by running:
@@ -33,6 +37,7 @@ It will ask you to some questions as follows, after which it will create a new p
 * version
 * api_base_url
 * api_auth_url
+* enable_server_auth
 * server_auth_username
 * server_auth_password
 

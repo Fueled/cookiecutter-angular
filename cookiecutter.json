@@ -10,6 +10,7 @@
     "api_base_url": "http://localhost:8000/api/v1/",
     "api_auth_url": "auth",
     "base_href": "/",
+    "enable_server_auth": "y",
     "server_auth_username": "Username",
     "server_auth_password": "Password"
 }
