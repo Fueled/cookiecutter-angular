@@ -1,0 +1,38 @@
+<div class="form__fieldset" ng-class="{
+  'is--checkbox-parent': field.type == 'checkbox',
+  'is--checked': (field.type == 'checkbox' && valid.$modelValue),
+  'is--focus': isFocused,
+  'has--errors': (!field.hideErrors && valid.$invalid && ((valid.$touched && !field.dirtyValid) || (valid.$dirty && field.dirtyValid))) || errors[field.id]
+}">
+    <label ng-class="{ 'is--checkbox-parent': field.type == 'checkbox' }" ng-attr-for="{{ field.id }}">
+        {{ field.label + (!field.required ? ' (optional)' : '') }}
+    </label>
+
+    <span ng-if="field.ccValidate" aria-hidden="true">
+        <b ng-repeat="cc in ['Visa', 'MasterCard', 'American Express', 'Diners Club', 'Discover']" class="form__card--{{ cc | toSlug }}" ng-show="valid.$ccType">{{ cc }}</b>
+    </span>
+
+    <input
+      id="{{ field.id }}"
+      name="{{ field.id }}"
+      ng-class="{ 'is--checkbox': field.type == 'checkbox' }"
+      ng-blur="isFocused = false"
+      ng-focus="isFocused = true"
+      ng-model="model[field.id]"
+      ng-required="field.required"
+      validated-input=""
+      ng-change="errors[field.id] = undefined"
+      focus-on-condition="field.id == errors._focus"
+    />
+
+    <span>
+        <b ng-show="valid.$error.ccNumber">Invalid card number</b>
+        <b ng-show="valid.$error.validDate">Date is invalid ({{ field.dateFormat }})</b>
+        <b ng-show="valid.$error.required">{{ field.type != 'checkbox' ? field.label : 'This' }} is required</b>
+        <b ng-show="valid.$error.email">Email is invalid</b>
+        <b ng-show="valid.$error.minlength"><abbr title="Minimum">Min</abbr> {{ field.minlength }} characters</b>
+        <b ng-show="valid.$error.maxlength"><abbr title="Maximum">Max</abbr> {{ field.maxlength }} characters</b>
+        <b ng-show="valid.$error.tel">Invalid phone number (country code is required)</b>
+        <b ng-show="errors[field.id]">{{ errors[field.id] }}</b>
+    </span>
+</div>

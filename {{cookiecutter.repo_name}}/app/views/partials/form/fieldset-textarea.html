@@ -1,0 +1,34 @@
+<div ng-class="{
+  'is--focus': isFocused,
+  'has--error': (!field.hideErrors && valid.$invalid && ((valid.$touched && !field.dirtyValid) || (valid.$dirty && field.dirtyValid))) || errors[field.id] || (field.maxlength && valid.$viewValue.length > field.maxlength)
+}">
+    <label ng-attr-for="{{ field.id }}">
+      {{ field.label + (!field.required ? ' (optional)' : '') }}
+    </label>
+
+    <div ng-if="field.maxlength" ng-class="{ 'form__length--visible': !field.minlength || (field.minlength && valid.$viewValue.length > field.minlength) }">{{ field.maxlength - valid.$viewValue.length <= 100 ? field.maxlength - valid.$viewValue.length : '' }}</div>
+
+    <textarea
+      id="{{ field.id }}"
+      name="{{ field.id }}"
+      class=""
+      ng-blur="isFocused = false"
+      ng-focus="isFocused = true"
+      ng-model="model[field.id]"
+      ng-required="field.required"
+      validated-input=""
+      ng-change="errors[field.id] = undefined"
+      focus-on-condition="field.id == errors._focus"
+    /></textarea>
+
+    <span class="">
+        <b ng-show="valid.$error.ccNumber">Invalid card number</b>
+        <b ng-show="valid.$error.validDate">Date is invalid ({{ field.dateFormat }})</b>
+        <b ng-show="valid.$error.required">{{ field.type != 'checkbox' ? field.label : 'This' }} is required</b>
+        <b ng-show="valid.$error.email">Email is invalid</b>
+        <b ng-show="valid.$error.minlength"><abbr title="Minimum">Min</abbr> {{ field.minlength }} characters</b>
+        <b ng-show="valid.$error.maxlength"><abbr title="Maximum">Max</abbr> {{ field.maxlength }} characters</b>
+        <b ng-show="valid.$error.tel">Invalid phone number (country code is required)</b>
+        <b ng-show="errors[field.id]">{{ errors[field.id] }}</b>
+    </span>
+</div>

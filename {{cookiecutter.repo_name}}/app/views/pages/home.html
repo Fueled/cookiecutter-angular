@@ -1,1 +1,14 @@
-<p>Content</p>
+<h1>Hello world</h1>
+<p>Welcome to the Fueled Angular cookiecutter</p>
+
+<h2>Example form</h2>
+
+<form name="exampleForm.form">
+    <div ng-repeat="fieldset in exampleFormFields.fields"
+        form-fieldset="fieldset"
+        form-fieldset-valid="exampleForm.form[fieldset.id]"
+        form-fieldset-model="exampleForm.model"
+        form-errors="exampleForm.errors"></div>
+    <div ng-show="exampleForm.errors"><strong>Errors</strong> {{ exampleForm.errors }}</div>
+    <button type="submit">Submit</button>
+</form>
