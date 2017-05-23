@@ -127,7 +127,7 @@ app.directive('validatedInput', ['$compile', function ($compile) {
             /*  CREDIT CARD VALIDATION:
                 - Uncomment below for credit card validation
                 - Uncomment 'credit-cards' in app.js
-                - Uncomment 'angular-credit-cards' in bower.json
+                - Add "angular-credit-cards": "^3.1.6", in bower.json
                 */ 
             // if (scope.field.ccValidate) {
             //     element.attr('cc-number', true);
@@ -136,7 +136,7 @@ app.directive('validatedInput', ['$compile', function ($compile) {
 
             /*  TELEPHONE NUMBER VALIDATION:
                 - Uncomment below for telephone validation
-                - Uncomment 'bc-phone-number' in bower.json
+                - Add "bc-phone-number": "^5.1.1" in bower.json
                 - Uncomment 'validateTel' directive above
                 */ 
             // if (type === 'tel') {
@@ -146,7 +146,7 @@ app.directive('validatedInput', ['$compile', function ($compile) {
             /*  DATE FIELD VALIDATOR:
                 - Uncomment below for date field validation
                 - Uncomment 'angularMoment' in app.js
-                - Uncomment 'angular-moment' in bower.json
+                - Add "angular-moment": "^1.0.1", in bower.json
                 - Uncomment 'dateFieldValidator' directive above
                 */ 
             // if (scope.field.dateFormat) {
