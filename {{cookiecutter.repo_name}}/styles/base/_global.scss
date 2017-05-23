@@ -1,0 +1,42 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: $font-default-stack;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+html,
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: module-color(base-bg);
+}
+
+
+body {
+  color: module-color(base-color);
+  font-size: em($font-default-size);
+  line-height: $font-default-lineheight;
+}
+
+
+::-moz-selection {
+  background: color(accent);
+  color: color(white);
+  opacity: 1;
+}
+
+::selection {
+  background: color(accent);
+  color: color(white);
+  opacity: 1;
+}

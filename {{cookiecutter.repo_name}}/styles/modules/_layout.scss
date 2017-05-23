@@ -1,0 +1,16 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.view {
+  flex: 1;
+}
+
+.group {
+  margin: 0 auto;
+  max-width: $base-width;
+  padding: $base-gutter;
+  width: 100%;
+}

@@ -1,0 +1,7 @@
+@function color($v) {
+  @return map-get($colors, $v);
+}
+
+@function module-color($v) {
+  @return map-get($module-colors, $v);
+}
