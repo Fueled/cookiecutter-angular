@@ -9,6 +9,6 @@
         form-fieldset-valid="exampleForm.form[fieldset.id]"
         form-fieldset-model="exampleForm.model"
         form-errors="exampleForm.errors"></div>
-    <div ng-show="exampleForm.errors"><strong>Errors</strong> {{ exampleForm.errors }}</div>
+    <div ng-show="exampleForm.errors"><strong>Errors</strong> {% raw %}{{ exampleForm.errors }}{% endraw %}</div>
     <button type="submit">Submit</button>
 </form>
