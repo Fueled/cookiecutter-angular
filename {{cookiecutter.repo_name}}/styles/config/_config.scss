@@ -1,0 +1,53 @@
+$font-default-size: 16;
+$font-default-lineheight: 24px;
+$font-default-stack: "Nudista", sans-serif;
+
+$base-width: rem(1100);
+$base-gutter: rem(16);
+$base-spacing-unit: rem(16);
+$base-border-radius: rem(20);
+
+$h1-font-size: 35;
+$h2-font-size: 30;
+$h3-font-size: 23;
+
+$z-index: (
+  inner-core: 1,
+  outer-core: 2,
+  mantle:     50,
+  crust:      100,
+  ozone:      999,
+);
+
+$font-weight: (
+  light:        200,
+  regular:      400,
+  semi-bold:    600,
+);
+
+$colors: (
+  // Defaults
+  white: #FFFFFF,
+  black: #000000,
+
+  // Palette
+  dark: #111111,
+  primary: #161616,
+  secondary: #F5F5F1,
+  accent: #AE0000,
+);
+
+$module-colors: (
+  // Base
+  base-color: color(white),
+  base-bg: color(black),
+);
+
+$breakpoints: (
+  xxs:  0 * 16,
+  xs:  32 * 16, // 512
+  s:   48 * 16, // 768
+  m:   64 * 16, // 1024
+  l:   96 * 16, // 1536
+  xl: 102 * 16  // 1632
+);

@@ -1,0 +1,3 @@
+@function module-var($v) {
+  @return map-get($module-vars, $v);
+}

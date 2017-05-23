@@ -1,18 +1,33 @@
 /**
- * {{cookiecutter.project_name}}
+ * Ethanol
  * =======
- * (c) Fueled
+ * Joe Richardson <joe.richardson@fueled.com>
+ * (c) Fueled, 2017
  *
  *
  * Main SCSS file
  *
  */
 
+@import 'mixins/breakpoints';
+@import 'mixins/clearfix';
+@import 'mixins/color';
+@import 'mixins/font-weight';
+@import 'mixins/type';
+@import 'mixins/module-var';
+@import 'mixins/visuallyhidden';
+@import 'mixins/z-index';
 
-body {
-  background: salmon;
+@import 'config/config';
 
-  &.dashboard {
-    background: teal;
-  }
-}
+@import 'base/global';
+@import 'base/images';
+@import 'base/links';
+@import 'base/typography';
+
+@import 'modules/layout';
+@import 'modules/header';
+
+@import 'utils/helpers';
+@import 'utils/oldie';
+@import 'utils/shame';

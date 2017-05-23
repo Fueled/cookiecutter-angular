@@ -1,0 +1,240 @@
+$heading-line-height: 1.2;
+$paragraph-line-height: 1.5;
+
+%heading {
+  line-height: $heading-line-height;
+  display: block;
+  font-weight: font-weight(semi-bold);
+  margin: 2em auto 1em;
+}
+
+%h1 {
+  @extend %heading;
+
+  font-size: rem(40);
+  
+  @include min-width(bp(s)) {
+    font-size: rem(44)
+  }
+
+  @include min-width(bp(m)) {
+    font-size: rem(48);
+  }
+
+  @include min-width(bp(l)) {
+    font-size: rem(54);
+  }
+}
+
+%h2 {
+  @extend %heading;
+
+  font-size: rem(23);
+
+  @include min-width(bp(s)) {
+    font-size: rem(26)
+  }
+
+  @include min-width(bp(m)) {
+    font-size: rem(29);
+  }
+
+  @include min-width(bp(l)) {
+    font-size: rem(32);
+  }
+}
+
+%h2-large {
+  @extend %heading;
+
+  font-size: rem(31);
+
+  @include min-width(bp(s)) {
+    font-size: rem(34)
+  }
+
+  @include min-width(bp(m)) {
+    font-size: rem(37);
+  }
+
+  @include min-width(bp(l)) {
+    font-size: rem(40);
+  }
+}
+
+%h3 {
+  @extend %heading;
+
+  font-size: rem(18);
+
+  @include min-width(bp(s)) {
+    font-size: rem(21)
+  }
+
+  @include min-width(bp(m)) {
+    font-size: rem(23);
+  }
+
+  @include min-width(bp(l)) {
+    font-size: rem(26);
+  }
+}
+
+%paragraph {
+  line-height: $paragraph-line-height;
+  margin-bottom: rem(20);
+
+  @include min-width(bp(s)) {
+    margin-bottom: rem(30);
+  }
+}
+
+%p-size-tiny {
+  font-size: rem(13);
+
+  @include min-width(bp(l)) {
+    font-size: rem(13);
+  }
+}
+
+%p-size-small {
+  font-size: rem(14);
+
+  @include min-width(bp(l)) {
+    font-size: rem(15);
+  }
+}
+
+%p-size {
+  font-size: rem(15);
+
+  @include min-width(bp(s)) {
+    font-size: rem(16)
+  }
+
+  @include min-width(bp(m)) {
+    font-size: rem(17);
+  }
+
+  @include min-width(bp(l)) {
+    font-size: rem(18);
+  }
+}
+
+%p-size-large {
+  font-size: rem(17);
+
+  @include min-width(bp(s)) {
+    font-size: rem(18)
+  }
+
+  @include min-width(bp(m)) {
+    font-size: rem(20);
+  }
+
+  @include min-width(bp(l)) {
+    font-size: rem(22);
+  }
+}
+
+%h4 {
+  @extend %heading;
+  @extend %p-size;
+
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+}
+
+%p {
+  @extend %paragraph;
+  @extend %p-size;
+}
+
+%p-tiny {
+  @extend %paragraph;
+  @extend %p-size-tiny;
+}
+
+%p-small {
+  @extend %paragraph;
+  @extend %p-size-small;
+}
+
+%p-large {
+  @extend %paragraph;
+  @extend %p-size-large;
+}
+
+.h1 {
+  @extend %h1;
+}
+
+.h2 {
+  @extend %h2;
+
+  &--large {
+    @extend %h2-large;
+  }
+}
+
+.h3 {
+  @extend %h3;
+}
+
+.h4 {
+  @extend %h4;
+}
+
+.p {
+  @extend %p;
+
+  &--tiny {
+    @extend %p-tiny;
+  }
+
+  &--small {
+    @extend %p-small;
+  }
+
+  &--large {
+    @extend %p-large;
+  }
+}
+
+.typeset {
+
+  h1 {
+    @extend %h2-large;
+  }
+
+  h2 {
+    @extend %h2;
+  }
+
+  h3 {
+    @extend %h3;
+  }
+
+  h4 {
+    @extend %h4;
+  }
+
+  p:not(.p--large),
+  ul,
+  ol {
+    @extend %p;
+  }
+
+  small {
+    @extend %p-small;
+  }
+
+  .hr {
+    margin-top: $base-gutter * 3;
+  }
+}
+
+.typeset--small {
+
+  
+}
