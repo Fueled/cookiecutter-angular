@@ -1,4 +1,4 @@
-<div ng-class="{
+{% raw %}<div ng-class="{
   'is--focus': isFocused,
   'has--error': (!field.hideErrors && valid.$invalid && ((valid.$touched && !field.dirtyValid) || (valid.$dirty && field.dirtyValid))) || errors[field.id] || (field.maxlength && valid.$viewValue.length > field.maxlength)
 }">
@@ -31,4 +31,4 @@
         <b ng-show="valid.$error.tel">Invalid phone number (country code is required)</b>
         <b ng-show="errors[field.id]">{{ errors[field.id] }}</b>
     </span>
-</div>
+</div>{% endraw %}
